@@ -42,15 +42,15 @@ object OSGi {
       "akka.http.#DSL#.common.*",
       "akka.http.#DSL#.marshalling.*",
       "akka.http.#DSL#.unmarshalling.*"
-    ) flatMap { p =>
-      Seq(p.replace("#DSL#", "scaladsl"), p.replace("#DSL#", "javadsl"))
-    },
+    ) flatMap { p ⇒
+        Seq(p.replace("#DSL#", "scaladsl"), p.replace("#DSL#", "javadsl"))
+      },
     imports = Seq(scalaJava8CompatImport, akkaParboiledImport)
   )
 
   val httpTestkit = osgiPkgHeaders(
     exports = Seq("akka.http.scaladsl.testkit.*", "akka.http.javadsl.testkit.*"),
-    imports = Seq("akka.testkit.*", "akka.stream.testkit.*", "org.junit") map { pkg => optionalResolution(minorVersionToNextMinorVersion(pkg)) }
+    imports = Seq("akka.testkit.*", "akka.stream.testkit.*", "org.junit") map { pkg ⇒ optionalResolution(minorVersionToNextMinorVersion(pkg)) }
   )
 
   val httpSprayJson = osgiPkgHeaders(exports = Seq("akka.http.scaladsl.marshallers.sprayjson"))

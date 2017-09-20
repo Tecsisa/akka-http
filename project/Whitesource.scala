@@ -20,7 +20,7 @@ object Whitesource extends AutoPlugin {
       projectName + "-" + (
         if (isSnapshot.value)
           if (gitCurrentBranch.value == "master") "master"
-          else "adhoc"
+        else "adhoc"
         else majorMinor((version in LocalRootProject).value).map(_ + "-stable").getOrElse("adhoc")
       )
     }

@@ -33,13 +33,13 @@ object Scaladoc extends AutoPlugin {
       scalacOptions in Compile ++= scaladocOptions(version.value, (baseDirectory in ThisBuild).value),
       autoAPIMappings := CliOptions.scaladocAutoAPI.get
     )) ++
-    Seq(validateDiagrams in Compile := true) ++
-    CliOptions.scaladocDiagramsEnabled.ifTrue(doc in Compile := {
-      val docs = (doc in Compile).value
-      if ((validateDiagrams in Compile).value)
-        scaladocVerifier(docs)
-      docs
-    })
+      Seq(validateDiagrams in Compile := true) ++
+      CliOptions.scaladocDiagramsEnabled.ifTrue(doc in Compile := {
+        val docs = (doc in Compile).value
+        if ((validateDiagrams in Compile).value)
+          scaladocVerifier(docs)
+        docs
+      })
   }
 
   def scaladocOptions(ver: String, base: File): List[String] = {
@@ -63,18 +63,17 @@ object Scaladoc extends AutoPlugin {
         val curr = dirs.head
         val (newDirs, files) = curr.listFiles.partition(_.isDirectory)
         val rest = dirs.tail ++ newDirs
-        val hasDiagram = files exists { f =>
+        val hasDiagram = files exists { f ⇒
           val name = f.getName
           if (name.endsWith(".html") && !name.startsWith("index-") &&
-              !name.equals("index.html") && !name.equals("package.html")) {
+            !name.equals("index.html") && !name.equals("package.html")) {
             val source = scala.io.Source.fromFile(f)(scala.io.Codec.UTF8)
             val hd = try source.getLines().exists(_.contains("<div class=\"toggleContainer block diagram-container\" id=\"inheritance-diagram-container\">"))
             catch {
-              case e: Exception => throw new IllegalStateException("Scaladoc verification failed for file '"+f+"'", e)
+              case e: Exception ⇒ throw new IllegalStateException("Scaladoc verification failed for file '" + f + "'", e)
             } finally source.close()
             hd
-          }
-          else false
+          } else false
         }
         hasDiagram || findHTMLFileWithDiagram(rest)
       }
@@ -133,7 +132,7 @@ object UnidocRoot extends AutoPlugin {
 
   override lazy val projectSettings =
     settings ++
-    akkaSettings
+      akkaSettings
 }
 
 /**
