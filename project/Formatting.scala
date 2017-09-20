@@ -28,7 +28,7 @@ object Formatting {
       .setPreference(AlignParameters, true)
       .setPreference(AlignSingleLineCaseStatements, true)
       .setPreference(DanglingCloseParenthesis, Preserve)
-      .setPreference(DoubleIndentClassDeclaration, false)
+      .setPreference(DoubleIndentConstructorArguments, false)
   }
 
   def docFormattingPreferences = Def.setting {
@@ -38,6 +38,6 @@ object Formatting {
       .setPreference(AlignParameters, true)
       .setPreference(AlignSingleLineCaseStatements, true)
       .setPreference(DanglingCloseParenthesis, Preserve)
-      .setPreference(DoubleIndentClassDeclaration, false)
+      .setPreference(DoubleIndentConstructorArguments, false)
   }
 }
